@@ -1,6 +1,7 @@
-function dy = reaktorODE(t, y, cA0, FA0, FB0, V, k, Ea, R, cB0, Ro, Cp, FH0, VH, TH0, TA0, TB0, U, A, RoH, CpH );
+function dy = reaktorODE(t, y, cA0, FA0, FB0, V, k, Ea, R, cB0, Ro, Cp, FH0, VH, TH0, TA0, TB0, U, A, RoH, CpH)
 
-    cA = y(1);
+    %itt az y mátrix oszlopait definiáljuk, ami nekem segített megértésben
+    cA = y(1); 
     cB = y(2);
     cC = y(3);
     cD = y(4);
@@ -8,11 +9,12 @@ function dy = reaktorODE(t, y, cA0, FA0, FB0, V, k, Ea, R, cB0, Ro, Cp, FH0, VH,
     TH = y(6);
     
     dy = zeros(size(y));
-    
-    r = k * cA * cB * exp (-Ea/(R*Tk)) ;
-    Tk = T + 273.15;
+
+    Tk = T + 273.15; %Itt fontos, hogy a Tk definiálva legyen, mielőtt az egy másik egyenletben megjelenik pl.13as spr
+    r = k * cA * cB * exp (-Ea/(R*Tk)); 
     F = FA0 + FB0;
-    
+    FH = FH0; %Ezt órán elfelejtettük definiálni, de enélkül nem indul el az egyenlet a 22es sorban
+
     dcA = (cA0 * FA0 / V) - (cA * F / V) - (r);
     dcB = (cB0 * FB0 / V) - (cB * F / V) - (r);
     cC = (-cC * F / V) + r;
@@ -27,4 +29,4 @@ function dy = reaktorODE(t, y, cA0, FA0, FB0, V, k, Ea, R, cB0, Ro, Cp, FH0, VH,
     dy(5) = dT;
     dy(6) = dTH;
 
-    
+end
