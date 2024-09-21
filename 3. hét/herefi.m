@@ -1,3 +1,4 @@
+%Ennek nincs köze a projekt feladathoz csak próbálkoztam egyedül szórakozni a 3. heti óra előtt
 function herefi()
 k = 5*10^(9);
 R = 8.31;
