@@ -26,10 +26,11 @@ U = 1800;       %W/m2/K
 A = 5*V^(2/3);  %m2
 Fc0 = 0.02;     %m3/s
 Tc0 = 0;         %°C
+cAl_r = Mw * a1 * exp(a2* ( T_r + 273.15 ) ); 
 
 tspan = [0 10^(6)];
 y0 = [0 20 20 0 0 0 0];
-odefun = @(t, y) crystallisationODE(t,y,a1,a2,kp,kg,Mw,kv,rho_cr,F,V,T_r,U,A,rho,cp,Fc0,Tc0,rho_c,cp_c,Vc,R,Eg,g,p);
+odefun = @(t, y) crystallisationODE(t,y,a1,a2,kp,kg,Mw,kv,rho_cr,F,V,T_r,U,A,rho,cp,Fc0,Tc0,rho_c,cp_c,Vc,R,Eg,g,p,cAl_r);
 
 [t , y ] = ode45(odefun, tspan, y0);
 

@@ -1,4 +1,4 @@
-function dy = crystallisationODE(t,y,a1,a2,kp,kg,Mw,kv,rho_cr,F,V,T_r,U,A,rho,cp,Fc0,Tc0,rho_c,cp_c,Vc,R,Eg,g,p)
+function dy = crystallisationODE(t,y,a1,a2,kp,kg,Mw,kv,rho_cr,F,V,T_r,U,A,rho,cp,Fc0,Tc0,rho_c,cp_c,Vc,R,Eg,g,p,cAl_r)
 
 cAl = y(1); % kg/m3 
 T  = y(2); % °C
@@ -13,9 +13,13 @@ dy = zeros(size(y));
 Tk = T + 273.15;
 cAl_s = Mw * a1 * exp(a2*Tk);
 hajtoero = ((cAl - cAl_s) / cAl_s);
+if hajtoero > 0
 B = kp * hajtoero^(p);
 G = kg * hajtoero^(g) * exp((-Eg/(R*Tk)));
-cAl_r = Mw * a1 * exp(a2* ( T_r + 273.15 ) );
+else
+B = 0;
+G = 0;
+end
 
 dmom0 = B - (F/V)*mom0;
 dmom1 = G*mom0 - (F/V)*mom1;
