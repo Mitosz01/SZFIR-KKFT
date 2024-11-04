@@ -13,6 +13,7 @@ kg = 75;         %m/s
 g = 1.32;        %-
 T_r = 40;        %°C
 F = 0.004;     %m3/s
+cAl_r = Mw * a1 * exp(a2* ( T_r ) ); 
 rho = 998;      %kg/m3
 rho_c = 998;    %kg/m3
 rho_cr = 1300;  %kg/m3
@@ -22,11 +23,11 @@ cp_c = 3140;    %J/kg/K
 %változhat
 V = 5;          %m3
 Vc = V/10;       %m3
-U = 1800;       %W/m2/K
+U = 1600;       %W/m2/K
 A = 5*V^(2/3);  %m2
 Fc0 = 0.02;     %m3/s
 Tc0 = 0;         %°C
-cAl_r = Mw * a1 * exp(a2* ( T_r + 273.15 ) ); 
+
 
 tspan = [0 10^(6)];
 y0 = [0 20 20 0 0 0 0];
@@ -39,7 +40,7 @@ L = y(:,5) ./ y(:,4);
 subplot(1,3,1)
 semilogx(t,y(:,2))
 hold on
-semilogx(t,y(:,3))
+plot(t,y(:,3))
 legend("Crystallization temperature","Cape temperature")
 xlabel("time (s)")
 ylabel("Temperature (°C)")
@@ -56,6 +57,6 @@ grid on
 subplot(1,3,3)
 semilogx(t,L)
 xlabel("time")
-ylabel("Average particle size mikrom")
+ylabel("Average particle size mikroM")
 box on
 grid on
