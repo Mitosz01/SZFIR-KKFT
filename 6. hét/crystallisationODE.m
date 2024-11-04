@@ -1,21 +1,21 @@
 function dy = crystallisationODE(t,y,a1,a2,kp,kg,Mw,kv,rho_cr,F,V,T_r,U,A,rho,cp,Fc0,Tc0,rho_c,cp_c,Vc,R,Eg,g,p,cAl_r)
 
 cAl = y(1); % kg/m3 
-T  = y(2); % °C egység
+T  = y(2); % °C kristályosító
 Tc   = y(3); % °C köpeny
-mom0 = y(4);
-mom1 = y(5);
-mom2 = y(6);
-mom3 = y(7);
+mom0 = y(4); %#/m^3
+mom1 = y(5); %m/^3 
+mom2 = y(6); %m^2/m^3
+mom3 = y(7); %m^3/m^3 
 
 dy = zeros(size(y));
 
 Tk = T + 273.15;
-cAl_s = Mw * a1 * exp(a2*T);
+cAl_s = Mw * a1 * exp(a2*T); %itt kiemelten °C-ra va szükség 
 
 hajtoero = (cAl - cAl_s) / cAl_s;
 
-if hajtoero > 0
+if hajtoero > 0 %itt fontos,hogy kijelöljük mely tartományokban értelmezzük a hajtóerőt, mert ha az esetleg negatív a megoldás tartalmazni fog nem valós részeket is
 B = kp * hajtoero^(p);
 G = kg * hajtoero^(g) * exp(-Eg/(R*Tk));
 else
