@@ -20,6 +20,7 @@ rho_cr = 1300;  %kg/m3
 kv = pi/6;      %-
 cp = 3140;      %j/kg/K
 cp_c = 3140;    %J/kg/K
+
 %változhat
                                 V = 10;          %m3
 Vc = V/10;       %m3
@@ -48,7 +49,7 @@ for i = 1 : length(Fc0v)
     Tkopv(i)     = y(end,3);
     Lv(i)        =(y(end,5)/y(end,4))*10^6;
     Pv(i)        = y(end,4);
-    Yv(i)        =(y(end,7) * rho_cr )/( cAl_r * Mw ); %Magyarázat README
+    Yv(i)        = (1 - (y(end,1))/( cAl_r)) * 100; %Magyarázat README
 
 end
 
@@ -79,8 +80,9 @@ box on
 subplot(1,4,4)
 plot(Fc0v, Yv,'ro','linestyle','--')
 xlabel("Fc0 m^3/s")
-ylabel("yield /-")
+ylabel("yield / %")
 grid on
 box on
 
-
+% V = 10m^3 
+% Fc0 ~ 0.02 m^3/s

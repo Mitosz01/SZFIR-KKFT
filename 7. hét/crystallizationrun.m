@@ -21,11 +21,11 @@ kv = pi/6;      %-
 cp = 3140;      %j/kg/K
 cp_c = 3140;    %J/kg/K
 %változhat
-V = 5;          %m3
+            V = 10;          %m3
 Vc = V/10;       %m3
 U = 1800;       %W/m2/K
 A = 5*V^(2/3);  %m2
-Fc0 = 0.05;     %m3/s
+            Fc0 = 0.05;     %m3/s
 Tc0 = 0;         %°C
 
 
@@ -37,7 +37,7 @@ odefun = @(t, y) crystallisationODE(t,y,a1,a2,kp,kg,Mw,kv,rho_cr,F,V,T_r,U,A,rho
 
 L = (y(:,5) ./ y(:,4))*10^6;
 
-Y = ( y(:,7) * rho_cr )/( cAl_r * Mw );
+Y =  (1 - (y(:,1) ./ cAl_r)) * 100 ;
 
 subplot(1,4,1)
 semilogx(t,y(:,2))
@@ -66,6 +66,6 @@ grid on
 subplot(1,4,4)
 semilogx(t,Y)
 xlabel("time/s")
-ylabel("yield/-")
+ylabel("yield/ %")
 box on 
 grid on
